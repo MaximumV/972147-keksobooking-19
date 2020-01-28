@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Владислав Клева](https://up.htmlacademy.ru/javascript/19/user/972147).
-* Наставник: `Неизвестно`.
+* Наставник: [Виталий Усик](https://up.htmlacademy.ru/javascript/19/user/235226).
 
 ---
 
