@@ -15,11 +15,15 @@
     "eslint-config-htmlacademy": "0.5.2"
   },
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "browser-sync": "^2.26.7",
+    "gulp": "^4.0.2"
+  },
   "scripts": {
-    "test": "eslint js/"
+    "test": "eslint js/",
+    "start": "gulp start"
   },
   "engines": {
-    "node": "8.11"
+    "node": "12.13"
   }
 }
