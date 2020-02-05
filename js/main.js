@@ -11,17 +11,17 @@ var PHOTOS = [
 var COUNT_OFFERS = 8;
 var PossibleLocations = {
   x: {
-    min: 0,
-    max: 1200
+    MIN: 0,
+    MAX: 1200
   },
   y: {
-    min: 130,
-    max: 630
+    MIN: 130,
+    MAX: 630
   }
 };
 
 var mapElement = document.querySelector('.map');
-var mapPinElement = document.querySelector('#pin')
+var mapPinTemplate = document.querySelector('#pin')
   .content
   .querySelector('.map__pin');
 var mapPinsListElement = document.querySelector('.map__pins');
@@ -42,8 +42,8 @@ var getArrayRandomLength = function (array) {
 var generateOffersData = function () {
   var offersData = [];
   for (var i = 1; i <= COUNT_OFFERS; i++) {
-    var locationX = getRandomIntFromRange(PossibleLocations.x.min, PossibleLocations.x.max);
-    var locationY = getRandomIntFromRange(PossibleLocations.y.min, PossibleLocations.y.max);
+    var locationX = getRandomIntFromRange(PossibleLocations.x.MIN, PossibleLocations.x.MAX);
+    var locationY = getRandomIntFromRange(PossibleLocations.y.MIN, PossibleLocations.y.MAX);
     offersData[i - 1] = {
       author: {
         avatar: 'img/avatars/user0' + i + '.png'
@@ -73,7 +73,7 @@ var generateOffersData = function () {
 var renderOffers = function (offersArray) {
   var fragment = document.createDocumentFragment();
   offersArray.forEach(function (item) {
-    var offerElement = mapPinElement.cloneNode(true);
+    var offerElement = mapPinTemplate.cloneNode(true);
     var offerImg = offerElement.querySelector('img');
     var coorX = item.location.x + offerImg.width;
     var coorY = item.location.y + offerImg.height;
