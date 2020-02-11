@@ -30,12 +30,12 @@ var OffsetPin = {
     y: 70
   }
 };
-var GuestsRoomsRelation = new window.Map([
-  [1, [1]],
-  [2, [1, 2]],
-  [3, [1, 2, 3]],
-  [100, [0]]
-]);
+var RoomsGuestsRelation = {
+  one: [1],
+  two: [1, 2],
+  three: [1, 2, 3],
+  hundred: [0]
+};
 
 var mapElement = document.querySelector('.map');
 var mapPinsListElement = document.querySelector('.map__pins');
@@ -186,15 +186,46 @@ var setAddressValue = function (address) {
 var roomsGuestsValidate = function () {
   var rooms = parseInt(roomsSelectElement.value, 10);
   var guests = parseInt(guestsSelectElement.value, 10);
-  return GuestsRoomsRelation.get(rooms).includes(guests);
+  var error = true;
+  var msg = '';
+  switch (rooms) {
+    case 1:
+      if (RoomsGuestsRelation.one.includes(guests)) {
+        error = false;
+      } else {
+        msg = 'Количество гостей должно быть равно 1';
+      }
+      break;
+    case 2:
+      if (RoomsGuestsRelation.two.includes(guests)) {
+        error = false;
+      } else {
+        msg = 'Количество гостей должно быть 1 или 2';
+      }
+      break;
+    case 3:
+      if (RoomsGuestsRelation.three.includes(guests)) {
+        error = false;
+      } else {
+        msg = 'Количество гостей должно быть 1, 2 или 3';
+      }
+      break;
+    case 100:
+      if (RoomsGuestsRelation.hundred.includes(guests)) {
+        error = false;
+      } else {
+        msg = '100 комнат предназначены не для гостей';
+      }
+      break;
+  }
+  return {error: error, msg: msg};
 };
 
-var onFormAddSubmit = function (evt) {
-  if (!roomsGuestsValidate()) {
-    guestsSelectElement.setCustomValidity('Ошибочка'); // ??????????????????????
-    evt.preventDefault();
+var onFormAddSubmit = function () {
+  if (roomsGuestsValidate().error) {
+    guestsSelectElement.setCustomValidity(roomsGuestsValidate().msg);
   } else {
-    guestsSelectElement.setCustomValidity(''); // ???????????????????????
+    guestsSelectElement.setCustomValidity('');
   }
 };
 
@@ -207,3 +238,4 @@ var init = function () {
 };
 
 init();
+
