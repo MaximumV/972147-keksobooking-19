@@ -168,8 +168,7 @@ var disableFormAdd = function () {
 var activateApp = function () {
   enableMap();
   enableFormAdd();
-  mapMainPinElement.removeEventListener('mousedown', onLeftClickPinElement);
-  mapMainPinElement.removeEventListener('keydown', onEnterKeyPinElement);
+  mapMainPinElement.removeEventListener('click', onClickPinElement);
 };
 
 var deactivateApp = function () {
@@ -177,14 +176,8 @@ var deactivateApp = function () {
   disableFormAdd();
 };
 
-var onLeftClickPinElement = function (evt) {
+var onClickPinElement = function (evt) {
   if (evt.button === 0) {
-    activateApp();
-  }
-};
-
-var onEnterKeyPinElement = function (evt) {
-  if (evt.key === ENTER_KEY) {
     activateApp();
   }
 };
@@ -235,8 +228,7 @@ var init = function () {
   deactivateApp();
   setAddressValue(getMainPinCoordinates());
   formAddElement.addEventListener('click', onFormAddSubmit);
-  mapMainPinElement.addEventListener('mousedown', onLeftClickPinElement);
-  mapMainPinElement.addEventListener('keydown', onEnterKeyPinElement);
+  mapMainPinElement.addEventListener('click', onClickPinElement);
 };
 
 init();
