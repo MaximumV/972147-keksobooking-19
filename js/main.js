@@ -9,7 +9,7 @@ var PHOTOS = [
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg'
 ];
 var COUNT_OFFERS = 8;
-var ENTER_KEY = 'Enter';
+
 var PossibleLocations = {
   x: {
     MIN: 0,
@@ -30,7 +30,6 @@ var RoomsGuestsRelation = {
 var mapElement = document.querySelector('.map');
 var mapPinsListElement = document.querySelector('.map__pins');
 var mapMainPinElement = document.querySelector('.map__pin--main');
-var mapMainPinImg = mapMainPinElement.querySelector('img');
 var formAddElement = document.querySelector('.ad-form');
 var formAddFieldsetElements = formAddElement.querySelectorAll('fieldset');
 var addressElement = formAddElement.querySelector('#address');
@@ -53,22 +52,6 @@ var OffsetPin = {
     y: 70
   }
 };
-
-function calculateWidthElement(element) {
-  return parseInt(window.getComputedStyle(element).width, 10) +
-    parseInt(window.getComputedStyle(element).borderLeftWidth, 10) +
-    parseInt(window.getComputedStyle(element).borderRightWidth, 10) +
-    parseInt(window.getComputedStyle(element).paddingLeft, 10) +
-    parseInt(window.getComputedStyle(element).paddingRight, 10);
-}
-
-function calculateHeightElement(element) {
-  return parseInt(window.getComputedStyle(element).height, 10) +
-    parseInt(window.getComputedStyle(element).borderTopWidth, 10) +
-    parseInt(window.getComputedStyle(element).borderBottomWidth, 10) +
-    parseInt(window.getComputedStyle(element).paddingTop, 10) +
-    parseInt(window.getComputedStyle(element).paddingBottom, 10);
-}
 
 var getRandomIntFromRange = function (min, max) {
   return Math.round(min - 0.5 + Math.random() * (max - min + 1));
