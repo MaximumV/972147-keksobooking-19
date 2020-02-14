@@ -9,7 +9,7 @@ var PHOTOS = [
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg'
 ];
 var COUNT_OFFERS = 8;
-var ENTER_KEY = 'Enter';
+
 var PossibleLocations = {
   x: {
     MIN: 0,
@@ -18,16 +18,6 @@ var PossibleLocations = {
   y: {
     MIN: 130,
     MAX: 630
-  }
-};
-var OffsetPin = {
-  main: {
-    x: 31,
-    y: 72
-  },
-  offer: {
-    x: 25,
-    y: 70
   }
 };
 var RoomsGuestsRelation = {
@@ -51,6 +41,17 @@ var formFilterFieldsetElements = formFilterElement.querySelectorAll('fieldset');
 var mapPinTemplate = document.querySelector('#pin')
   .content
   .querySelector('.map__pin');
+
+var OffsetPin = {
+  main: {
+    x: 31,
+    y: 72
+  },
+  offer: {
+    x: 25,
+    y: 70
+  }
+};
 
 var getRandomIntFromRange = function (min, max) {
   return Math.round(min - 0.5 + Math.random() * (max - min + 1));
@@ -150,6 +151,7 @@ var disableFormAdd = function () {
 var activateApp = function () {
   enableMap();
   enableFormAdd();
+  mapMainPinElement.removeEventListener('click', onClickPinElement);
 };
 
 var deactivateApp = function () {
@@ -157,19 +159,9 @@ var deactivateApp = function () {
   disableFormAdd();
 };
 
-var onLeftClickPinElement = function (evt) {
+var onClickPinElement = function (evt) {
   if (evt.button === 0) {
     activateApp();
-    mapMainPinElement.removeEventListener('mousedown', onLeftClickPinElement);
-    mapMainPinElement.removeEventListener('keydown', onLeftClickPinElement);
-  }
-};
-
-var onEnterKeyPinElement = function (evt) {
-  if (evt.key === ENTER_KEY) {
-    activateApp();
-    mapMainPinElement.removeEventListener('mousedown', onLeftClickPinElement);
-    mapMainPinElement.removeEventListener('keydown', onLeftClickPinElement);
   }
 };
 
@@ -186,56 +178,40 @@ var setAddressValue = function (address) {
 var roomsGuestsValidate = function () {
   var rooms = parseInt(roomsSelectElement.value, 10);
   var guests = parseInt(guestsSelectElement.value, 10);
-  var error = true;
   var msg = '';
   switch (rooms) {
     case 1:
-      if (RoomsGuestsRelation.one.includes(guests)) {
-        error = false;
-      } else {
+      if (!RoomsGuestsRelation.one.includes(guests)) {
         msg = 'Количество гостей должно быть равно 1';
       }
       break;
     case 2:
-      if (RoomsGuestsRelation.two.includes(guests)) {
-        error = false;
-      } else {
+      if (!RoomsGuestsRelation.two.includes(guests)) {
         msg = 'Количество гостей должно быть 1 или 2';
       }
       break;
     case 3:
-      if (RoomsGuestsRelation.three.includes(guests)) {
-        error = false;
-      } else {
+      if (!RoomsGuestsRelation.three.includes(guests)) {
         msg = 'Количество гостей должно быть 1, 2 или 3';
       }
       break;
     case 100:
-      if (RoomsGuestsRelation.hundred.includes(guests)) {
-        error = false;
-      } else {
+      if (!RoomsGuestsRelation.hundred.includes(guests)) {
         msg = '100 комнат предназначены не для гостей';
       }
-      break;
   }
-  return {error: error, msg: msg};
+  return msg;
 };
 
 var onFormAddSubmit = function () {
-  if (roomsGuestsValidate().error) {
-    guestsSelectElement.setCustomValidity(roomsGuestsValidate().msg);
-  } else {
-    guestsSelectElement.setCustomValidity('');
-  }
+  guestsSelectElement.setCustomValidity(roomsGuestsValidate());
 };
 
 var init = function () {
   deactivateApp();
   setAddressValue(getMainPinCoordinates());
   formAddElement.addEventListener('click', onFormAddSubmit);
-  mapMainPinElement.addEventListener('mousedown', onLeftClickPinElement);
-  mapMainPinElement.addEventListener('keydown', onEnterKeyPinElement);
+  mapMainPinElement.addEventListener('click', onClickPinElement);
 };
 
 init();
-
