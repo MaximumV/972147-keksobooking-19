@@ -1,7 +1,7 @@
 'use strict';
 
-window.data = (function () {
-  return {
+(function () {
+  window.data = {
     TIMES: ['12:00', '13:00', '14:00'],
     TYPES: ['palace', 'flat', 'house', 'bungalo'],
     FEATURES: ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
