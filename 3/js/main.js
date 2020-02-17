@@ -151,7 +151,6 @@ var disableFormAdd = function () {
 var activateApp = function () {
   enableMap();
   enableFormAdd();
-  mapMainPinElement.removeEventListener('click', onClickPinElement);
 };
 
 var deactivateApp = function () {
@@ -159,10 +158,9 @@ var deactivateApp = function () {
   disableFormAdd();
 };
 
-var onClickPinElement = function (evt) {
-  if (evt.button === 0) {
-    activateApp();
-  }
+var onClickPinElement = function () {
+  activateApp();
+  mapMainPinElement.removeEventListener('click', onClickPinElement);
 };
 
 var getMainPinCoordinates = function () {
