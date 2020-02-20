@@ -66,7 +66,7 @@
   init();
 
   window.addForm = {
-    enableFormAdd: enableFormAdd,
-    disableFormAdd: disableFormAdd
+    enable: enableFormAdd,
+    disable: disableFormAdd
   };
 })();

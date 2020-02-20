@@ -4,13 +4,13 @@
   var mapMainPinElement = document.querySelector('.map__pin--main');
 
   var activateApp = function () {
-    window.map.enableMap();
-    window.addForm.enableFormAdd();
+    window.map.enable();
+    window.addForm.enable();
   };
 
   var deactivateApp = function () {
-    window.map.disableMap();
-    window.addForm.disableFormAdd();
+    window.map.disable();
+    window.addForm.disable();
   };
 
   var onClickPinElement = function () {

@@ -53,7 +53,7 @@
   };
 
   window.offers = {
-    generateOffersData: generateOffersData,
-    renderOffers: renderOffers
+    generate: generateOffersData,
+    render: renderOffers
   };
 })();

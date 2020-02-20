@@ -11,7 +11,7 @@
     if (mapElement.classList.contains('map--faded')) {
       window.util.enableFormElements(formFilterFieldsetElements);
       window.util.enableFormElements(formFilterSelectElements);
-      mapPinsListElement.appendChild(window.offers.renderOffers(window.offers.generateOffersData()));
+      mapPinsListElement.appendChild(window.offers.render(window.offers.generate()));
       mapElement.classList.remove('map--faded');
     }
   };
@@ -23,7 +23,7 @@
   };
 
   window.map = {
-    enableMap: enableMap,
-    disableMap: disableMap
+    enable: enableMap,
+    disable: disableMap
   };
 })();
