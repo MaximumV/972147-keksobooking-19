@@ -2,24 +2,7 @@
 
 (function () {
   window.data = {
-    TIMES: ['12:00', '13:00', '14:00'],
-    TYPES: ['palace', 'flat', 'house', 'bungalo'],
-    FEATURES: ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
-    PHOTOS: [
-      'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
-      'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
-      'http://o0.github.io/assets/images/tokyo/hotel3.jpg'
-    ],
-    PossibleLocations: {
-      x: {
-        MIN: 0,
-        MAX: 1138
-      },
-      y: {
-        MIN: 130,
-        MAX: 630
-      }
-    },
+    OFFERS_URL: 'https://js.dump.academy/keksobooking/data',
     RoomsGuestsRelation: {
       one: [1],
       two: [1, 2],
