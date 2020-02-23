@@ -16,15 +16,6 @@
     hideError: function () {
       errorElement.style.display = 'none';
     },
-    getRandomIntFromRange: function (min, max) {
-      return Math.round(min - 0.5 + Math.random() * (max - min + 1));
-    },
-    /* getRandomArrayElement: function (array) {
-      return array[Math.floor(Math.random() * array.length)];
-    },
-    getArrayRandomLength: function (array) {
-      return array.slice(0, window.util.getRandomIntFromRange(1, array.length + 1));
-    },*/
     getPinCoordinates: function (pinElement, type) {
       var coorX = 0;
       var coorY = 0;

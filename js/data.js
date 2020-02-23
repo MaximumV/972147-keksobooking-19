@@ -2,12 +2,23 @@
 
 (function () {
   window.data = {
-    OFFERS_URL: 'https://js.dump.academy/keksobooking/data',
     RoomsGuestsRelation: {
-      one: [1],
-      two: [1, 2],
-      three: [1, 2, 3],
-      hundred: [0]
+      1: {
+        count: [1],
+        error: 'Количество гостей должно быть равно 1'
+      },
+      2: {
+        count: [1, 2],
+        error: 'Количество гостей должно быть 1 или 2'
+      },
+      3: {
+        count: [1, 2, 3],
+        error: 'Количество гостей должно быть 1, 2 или 3'
+      },
+      100: {
+        count: [0],
+        error: '100 комнат предназначены не для гостей'
+      }
     },
     OffsetPins: {
       main: {
