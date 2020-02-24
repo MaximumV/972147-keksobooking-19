@@ -27,29 +27,9 @@
   var roomsGuestsValidate = function () {
     var rooms = parseInt(roomsSelectElement.value, 10);
     var guests = parseInt(guestsSelectElement.value, 10);
-    var msg = '';
-    switch (rooms) {
-      case 1:
-        if (!window.data.RoomsGuestsRelation.one.includes(guests)) {
-          msg = 'Количество гостей должно быть равно 1';
-        }
-        break;
-      case 2:
-        if (!window.data.RoomsGuestsRelation.two.includes(guests)) {
-          msg = 'Количество гостей должно быть 1 или 2';
-        }
-        break;
-      case 3:
-        if (!window.data.RoomsGuestsRelation.three.includes(guests)) {
-          msg = 'Количество гостей должно быть 1, 2 или 3';
-        }
-        break;
-      case 100:
-        if (!window.data.RoomsGuestsRelation.hundred.includes(guests)) {
-          msg = '100 комнат предназначены не для гостей';
-        }
-    }
-    return msg;
+    return window.data.RoomsGuestsRelation[rooms].count.includes(guests)
+      ? ''
+      : window.data.RoomsGuestsRelation[rooms].error;
   };
 
   var onFormAddSubmit = function () {
