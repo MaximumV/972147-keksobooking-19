@@ -29,6 +29,12 @@
         x: 25,
         y: 70
       }
+    },
+    HouseTypes: {
+      flat: 'Квартира',
+      bungalo: 'bungalo',
+      house: 'Дом',
+      palace: 'Доврец'
     }
   };
 })();
