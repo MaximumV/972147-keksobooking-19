@@ -12,7 +12,6 @@
 
   var renderPins = function (offersArray) {
     var fragment = document.createDocumentFragment();
-    console.log(offersArray);
     for (var i = 0; i < COUNT_OFFERS; i++) {
       var pinElement = mapPinTemplate.cloneNode(true);
       var offerElement = offerPopupTemplate.cloneNode(true);
