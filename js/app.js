@@ -13,15 +13,15 @@
     window.addForm.disable();
   };
 
-  var onClickPinElement = function () {
-    activateApp();
-    mapMainPinElement.removeEventListener('click', onClickPinElement);
-  };
-
   var init = function () {
     deactivateApp();
-    mapMainPinElement.addEventListener('click', onClickPinElement);
+    mapMainPinElement.addEventListener('mousedown', window.drag);
   };
 
   init();
+
+  window.app = {
+    activate: activateApp,
+    deactivate: deactivateApp
+  };
 })();

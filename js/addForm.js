@@ -41,8 +41,10 @@
     formAddElement.classList.add('ad-form--disabled');
   };
 
-  var setAddressValue = function (address) {
-    addressElement.value = address;
+  var setAddressValue = function () {
+    var x = window.util.getPinCoordinates(mapMainPinElement, 'main').x;
+    var y = window.util.getPinCoordinates(mapMainPinElement, 'main').y;
+    addressElement.value = x + ', ' + y;
   };
 
   var roomsGuestsValidate = function () {
@@ -72,9 +74,7 @@
   };
 
   var init = function () {
-    setAddressValue(window.util.getPinCoordinates(mapMainPinElement, 'main').x
-      + ', '
-      + window.util.getPinCoordinates(mapMainPinElement, 'main').y);
+    setAddressValue();
     setMinPrice(selectTypeElement.value);
     selectTypeElement.addEventListener('change', function (evt) {
       setMinPrice(evt.currentTarget.value);
@@ -89,6 +89,7 @@
 
   window.addForm = {
     enable: enableFormAdd,
-    disable: disableFormAdd
+    disable: disableFormAdd,
+    setAddress: setAddressValue
   };
 })();
