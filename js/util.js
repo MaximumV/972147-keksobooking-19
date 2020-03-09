@@ -3,6 +3,8 @@
 (function () {
   var errorElement = document.createElement('div');
   window.util = {
+    ESC_KEY: 'Escape',
+    HIDDEN_CLASS: 'hidden',
     showError: function (error) {
       errorElement.style.position = 'absolute';
       errorElement.style.left = '0';
@@ -43,6 +45,9 @@
       for (var i = 0; i < nodeList.length; i++) {
         nodeList[i].removeAttribute('disabled');
       }
+    },
+    parseNumber: function (number) {
+      return parseInt(number.replace(/[^\d]/g, ''), 10);
     }
   };
 })();
