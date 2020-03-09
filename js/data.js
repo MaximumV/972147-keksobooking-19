@@ -20,6 +20,12 @@
         error: '100 комнат предназначены не для гостей'
       }
     },
+    HouseTypePriceRelation: {
+      bungalo: 0,
+      flat: 1000,
+      house: 5000,
+      palace: 10000
+    },
     OffsetPins: {
       main: {
         x: 31,
