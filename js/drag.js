@@ -3,12 +3,12 @@
 (function () {
   var PossibleLocations = {
     x: {
-      MIN: 0,
-      MAX: 1135
+      MIN: 0 - window.data.OffsetPins.main.x,
+      MAX: 1135 + window.data.OffsetPins.main.x
     },
     y: {
-      MIN: 130,
-      MAX: 600
+      MIN: 130 - window.data.OffsetPins.main.y,
+      MAX: 630 - window.data.OffsetPins.main.y
     }
   };
   var mapMainPinElement = document.querySelector('.map__pin--main');
