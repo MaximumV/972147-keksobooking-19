@@ -16,6 +16,7 @@
   var timeOutElement = formAddElement.querySelector('#timeout');
   var avatarImgElement = formAddElement.querySelector('#avatar');
   var offerImagesElement = formAddElement.querySelector('#images');
+  var resetFormElement = formAddElement.querySelector('.ad-form__reset');
 
   var setMinPrice = function (type) {
     inputPriceElement.min = window.data.HouseTypePriceRelation[type];
@@ -91,9 +92,7 @@
       .addEventListener('click', removeSuccessElement);
     document.addEventListener('keydown', removeSuccessElementByEscKey);
     mainElement.appendChild(successElement);
-    formAddElement.reset();
-    window.map.clear();
-    window.app.deactivate();
+    window.app.reset();
   };
 
   var onSubmitError = function (error) {
@@ -121,6 +120,14 @@
     window.backend.save(new FormData(formAddElement), onSubmitSuccess, onSubmitError);
   };
 
+  var onFormReset = function (evt) {
+    window.app.reset(evt);
+  };
+
+  var resetForm = function () {
+    formAddElement.reset();
+  };
+
   var init = function () {
     setAddressValue();
     setMinPrice(selectTypeElement.value);
@@ -132,6 +139,7 @@
     timeOutElement.addEventListener('change', synchronizeTime);
     formAddElement.addEventListener('click', onFormAddClick);
     formAddElement.addEventListener('submit', onFormAddSubmit);
+    resetFormElement.addEventListener('click', onFormReset);
   };
 
   init();
@@ -139,6 +147,7 @@
   window.addForm = {
     enable: enableFormAdd,
     disable: disableFormAdd,
-    setAddress: setAddressValue
+    setAddress: setAddressValue,
+    reset: resetForm
   };
 })();

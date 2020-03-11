@@ -18,10 +18,22 @@
     mapMainPinElement.addEventListener('mousedown', window.drag);
   };
 
+  var resetApp = function (evt) {
+    if (evt) {
+      evt.preventDefault();
+    }
+    window.addForm.reset();
+    window.map.reset();
+    window.map.clear();
+    window.map.setPinDefault();
+    deactivateApp();
+  };
+
   init();
 
   window.app = {
     activate: activateApp,
-    deactivate: deactivateApp
+    deactivate: deactivateApp,
+    reset: resetApp
   };
 })();

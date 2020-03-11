@@ -11,8 +11,8 @@
       MAX: 630 - window.data.OffsetPins.main.y
     }
   };
-  var mapMainPinElement = document.querySelector('.map__pin--main');
   var isActiveApp = false;
+  var mapMainPinElement = document.querySelector('.map__pin--main');
 
   var setPinCoors = function (pinCoors, shift, coordinate) {
     if (pinCoors[coordinate] < PossibleLocations[coordinate].MIN) {

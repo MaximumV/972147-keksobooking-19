@@ -5,6 +5,17 @@
   var formFilterElement = document.querySelector('.map__filters');
   var formFilterSelectElements = formFilterElement.querySelectorAll('select');
   var formFilterFieldsetElements = formFilterElement.querySelectorAll('fieldset');
+  var mapMainPinElement = document.querySelector('.map__pin--main');
+  var DefaultCoors = {
+    x: mapMainPinElement.style.left,
+    y: mapMainPinElement.style.top
+  };
+
+  var setDefaultCoors = function () {
+    mapMainPinElement.style.left = DefaultCoors.x;
+    mapMainPinElement.style.top = DefaultCoors.y;
+    window.addForm.setAddress();
+  };
 
   var enableMap = function () {
     if (mapElement.classList.contains('map--faded')) {
@@ -38,9 +49,15 @@
     mapElement.classList.add('map--faded');
   };
 
+  var resetMapForm = function () {
+    formFilterElement.reset();
+  };
+
   window.map = {
     enable: enableMap,
     disable: disableMap,
-    clear: clearMap
+    clear: clearMap,
+    setPinDefault: setDefaultCoors,
+    reset: resetMapForm
   };
 })();
