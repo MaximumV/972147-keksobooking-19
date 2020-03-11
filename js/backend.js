@@ -2,6 +2,7 @@
 
 (function () {
   var OFFERS_URL = 'https://js.dump.academy/keksobooking/data';
+  var SAVE_FORM_URL = 'https://js.dump.academy/keksobooking';
   var SUCCESS_CODE = 200;
   var REQUEST_TIMEOUT = 7000;
   var XHR_RESPONSE_TYPE = 'json';
@@ -79,7 +80,12 @@
     xhrHandle('GET', OFFERS_URL, onError, onLoad);
   };
 
+  var saveData = function (data, onLoad, onError) {
+    xhrHandle('POST', SAVE_FORM_URL, onError, onLoad, data);
+  };
+
   window.backend = {
-    load: loadData
+    load: loadData,
+    save: saveData
   };
 })();

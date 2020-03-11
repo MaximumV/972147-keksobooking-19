@@ -1,8 +1,11 @@
 'use strict';
 
 (function () {
+  var mainElement = document.querySelector('main');
   var mapMainPinElement = document.querySelector('.map__pin--main');
   var formAddElement = document.querySelector('.ad-form');
+  var errorTemplate = document.querySelector('#error').content;
+  var successTemplate = document.querySelector('#success').content;
   var formAddFieldsetElements = formAddElement.querySelectorAll('fieldset');
   var addressElement = formAddElement.querySelector('#address');
   var roomsSelectElement = formAddElement.querySelector('#room_number');
@@ -67,10 +70,55 @@
     return isValidFile;
   };
 
-  var onFormAddSubmit = function () {
+  var onFormAddClick = function () {
     guestsSelectElement.setCustomValidity(roomsGuestsValidate());
     avatarImgElement.setCustomValidity(validateImages(avatarImgElement.files));
     offerImagesElement.setCustomValidity(validateImages(offerImagesElement.files));
+  };
+
+  var onSubmitSuccess = function () {
+    var successElement = successTemplate.cloneNode(true);
+    var removeSuccessElement = function () {
+      mainElement.removeChild(mainElement.querySelector('.success'));
+    };
+    var removeSuccessElementByEscKey = function (evt) {
+      if (evt.key === window.util.ESC_KEY) {
+        removeSuccessElement();
+        document.removeEventListener('keydown', removeSuccessElementByEscKey);
+      }
+    };
+    successElement.querySelector('.success')
+      .addEventListener('click', removeSuccessElement);
+    document.addEventListener('keydown', removeSuccessElementByEscKey);
+    mainElement.appendChild(successElement);
+    formAddElement.reset();
+    window.map.clear();
+    window.app.deactivate();
+  };
+
+  var onSubmitError = function (error) {
+    var errorElement = errorTemplate.cloneNode(true);
+    var removeErrorElement = function () {
+      mainElement.removeChild(mainElement.querySelector('.error'));
+    };
+    var removeErrorElementByEscKey = function (evt) {
+      if (evt.key === window.util.ESC_KEY) {
+        removeErrorElement();
+        document.removeEventListener('keydown', removeErrorElementByEscKey);
+      }
+    };
+    errorElement.querySelector('.error__message').textContent = error;
+    errorElement.querySelector('.error__button')
+      .addEventListener('click', removeErrorElement);
+    errorElement.querySelector('.error')
+      .addEventListener('click', removeErrorElement);
+    document.addEventListener('keydown', removeErrorElementByEscKey);
+    mainElement.appendChild(errorElement);
+  };
+
+  var onFormAddSubmit = function (evt) {
+    evt.preventDefault();
+    window.backend.save(new FormData(formAddElement), onSubmitSuccess, onSubmitError);
   };
 
   var init = function () {
@@ -82,7 +130,8 @@
     synchronizeTime(timeMinElement);
     timeMinElement.addEventListener('change', synchronizeTime);
     timeOutElement.addEventListener('change', synchronizeTime);
-    formAddElement.addEventListener('click', onFormAddSubmit);
+    formAddElement.addEventListener('click', onFormAddClick);
+    formAddElement.addEventListener('submit', onFormAddSubmit);
   };
 
   init();

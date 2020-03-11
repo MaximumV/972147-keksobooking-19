@@ -15,6 +15,23 @@
     }
   };
 
+  var clearMap = function () {
+    var pinElements = mapElement.querySelectorAll('.map__pin');
+    var offerElements = mapElement.querySelectorAll('.map__card');
+    if (pinElements) {
+      pinElements.forEach(function (item) {
+        if (!item.classList.contains('map__pin--main')) {
+          item.remove();
+        }
+      });
+    }
+    if (offerElements) {
+      offerElements.forEach(function (item) {
+        item.remove();
+      });
+    }
+  };
+
   var disableMap = function () {
     window.util.disableFormElements(formFilterFieldsetElements);
     window.util.disableFormElements(formFilterSelectElements);
@@ -23,6 +40,7 @@
 
   window.map = {
     enable: enableMap,
-    disable: disableMap
+    disable: disableMap,
+    clear: clearMap
   };
 })();
