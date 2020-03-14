@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var DELAY_TIME = 500;
+  var lastTimeout;
   var errorElement = document.createElement('div');
   window.util = {
     ESC_KEY: 'Escape',
@@ -48,6 +50,21 @@
     },
     parseNumber: function (number) {
       return parseInt(number.replace(/[^\d]/g, ''), 10);
+    },
+    compareArrays: function (array, arrayToCompare) {
+      var isContains = true;
+      array.forEach(function (item) {
+        if (!arrayToCompare.includes(item)) {
+          isContains = false;
+        }
+      });
+      return isContains;
+    },
+    debounce: function (cb) {
+      if (lastTimeout) {
+        window.clearTimeout(lastTimeout);
+      }
+      lastTimeout = window.setTimeout(cb, DELAY_TIME);
     }
   };
 })();

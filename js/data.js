@@ -38,9 +38,23 @@
     },
     HouseTypes: {
       flat: 'Квартира',
-      bungalo: 'bungalo',
+      bungalo: 'Бунгало',
       house: 'Дом',
       palace: 'Доврец'
+    },
+    PriceNames: {
+      any: function () {
+        return true;
+      },
+      middle: function (price) {
+        return price >= 10000 && price <= 50000;
+      },
+      low: function (price) {
+        return price >= 0 && price < 10000;
+      },
+      high: function (price) {
+        return price > 50000;
+      }
     }
   };
 })();
