@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var COUNT_OFFERS = 8;
+  var COUNT_OFFERS = 5;
   var MAP_PIN_ACTIVE_CLASS = 'map__pin--active';
   var mapPinTemplate = document.querySelector('#pin')
     .content
@@ -96,7 +96,8 @@
 
   var renderOffers = function (offersArray) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < COUNT_OFFERS; i++) {
+    var offersLength = offersArray.length < COUNT_OFFERS ? offersArray.length : COUNT_OFFERS;
+    for (var i = 0; i < offersLength; i++) {
       fragment.appendChild(getPin(offersArray[i]));
       fragment.appendChild(getOffer(offersArray[i]));
     }
@@ -106,6 +107,7 @@
 
   var showError = function (error) {
     window.util.showError(error);
+    window.app.deactivate();
   };
 
   var callOffersFunc = function (cb) {
@@ -119,8 +121,16 @@
     }
   };
 
-  var generateOffers = function () {
-    callOffersFunc(renderOffers);
+  var filterOffers = function (data, FilterObject) {
+    return data.filter(function (item) {
+      return FilterObject['housing-type'] === item.offer.type || FilterObject['housing-type'] === 'any';
+    });
+  };
+
+  var generateOffers = function (FilterObject) {
+    callOffersFunc(function (data) {
+      renderOffers(filterOffers(data, FilterObject));
+    });
   };
 
   window.offers = {
