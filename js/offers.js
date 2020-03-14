@@ -138,7 +138,17 @@
 
   var filterOffers = function (data, FilterObject) {
     return data.filter(function (item) {
-      return FilterObject['housing-type'] === item.offer.type || FilterObject['housing-type'] === 'any';
+      var compareProperty = function (obj, propertyName, propertyToCompare, defaultProperty) {
+        return obj[propertyName] === propertyToCompare || obj[propertyName] === defaultProperty;
+      };
+      var typeFlag = compareProperty(FilterObject, 'housing-type', item.offer.type, 'any');
+      var roomsFlag = compareProperty(FilterObject, 'housing-rooms', item.offer.rooms.toString(), 'any');
+      var guestsFlag = compareProperty(FilterObject, 'housing-guests', item.offer.guests.toString(), 'any');
+      var priceFlag = window.data.PriceNames[FilterObject['housing-price']](item.offer.price);
+      var featuresFlag = FilterObject['features'].length === 0
+        ? true
+        : window.util.compareArrays(FilterObject['features'], item.offer.features);
+      return typeFlag && roomsFlag && guestsFlag && priceFlag && featuresFlag;
     });
   };
 
