@@ -19,21 +19,21 @@
   };
 
   var onChangeSelect = function (evt) {
-    FiltersObject[evt.currentTarget.id] = evt.currentTarget.value;
+    window.Filter[evt.currentTarget.id] = evt.currentTarget.value;
     window.util.debounce(refreshFilter);
   };
 
   var onChangeCheckbox = function (evt) {
-    FiltersObject[evt.currentTarget.name] = getCheckedCheckboxes(checkboxElements);
+    window.Filter[evt.currentTarget.name] = getCheckedCheckboxes(checkboxElements);
     window.util.debounce(refreshFilter);
   };
 
   var refreshFilter = function () {
     window.map.clear();
-    window.offers.generate(FiltersObject);
+    window.offers.generate(window.Filter);
   };
 
-  var FiltersObject = {
+  window.Filter = {
     'housing-type': typeElement.value,
     'housing-price': priceElement.value,
     'housing-rooms': roomsElement.value,
@@ -48,8 +48,4 @@
   checkboxElements.forEach(function (item) {
     item.addEventListener('change', onChangeCheckbox);
   });
-
-  window.filterForm = {
-    filter: FiltersObject
-  };
 })();
