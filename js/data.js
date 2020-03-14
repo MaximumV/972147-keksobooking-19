@@ -38,7 +38,7 @@
     },
     HouseTypes: {
       flat: 'Квартира',
-      bungalo: 'bungalo',
+      bungalo: 'Бунгало',
       house: 'Дом',
       palace: 'Доврец'
     }
