@@ -15,7 +15,9 @@
   var timeMinElement = formAddElement.querySelector('#timein');
   var timeOutElement = formAddElement.querySelector('#timeout');
   var avatarImgElement = formAddElement.querySelector('#avatar');
+  var avatarPreviewElement = formAddElement.querySelector('.ad-form-header__preview');
   var offerImagesElement = formAddElement.querySelector('#images');
+  var offerImagesPreviewElement = document.querySelector('.ad-form__photo');
   var resetFormElement = formAddElement.querySelector('.ad-form__reset');
 
   var setMinPrice = function (type) {
@@ -71,6 +73,29 @@
     return isValidFile;
   };
 
+  var renderPreview = function (file, width, height, imgContainer) {
+    var reader = new FileReader();
+    var imgPreview = new Image(width, height);
+    reader.onloadend = function () {
+      clearPreview(imgContainer);
+      imgPreview.src = reader.result;
+      imgContainer.appendChild(imgPreview);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  var onAvatarChange = function (evt) {
+    if (validateImages(evt.currentTarget.files) === '') {
+      renderPreview(evt.currentTarget.files[0], 40, 40, avatarPreviewElement);
+    }
+  };
+
+  var onOfferImgChange = function (evt) {
+    if (validateImages(evt.currentTarget.files) === '') {
+      renderPreview(evt.currentTarget.files[0], 70, 70, offerImagesPreviewElement);
+    }
+  };
+
   var onFormAddClick = function () {
     guestsSelectElement.setCustomValidity(roomsGuestsValidate());
     avatarImgElement.setCustomValidity(validateImages(avatarImgElement.files));
@@ -124,8 +149,16 @@
     window.app.reset(evt);
   };
 
+  var clearPreview = function (imgContainer) {
+    if (imgContainer.querySelector('img')) {
+      imgContainer.removeChild(imgContainer.querySelector('img'));
+    }
+  };
+
   var resetForm = function () {
     formAddElement.reset();
+    clearPreview(avatarPreviewElement);
+    clearPreview(offerImagesPreviewElement);
   };
 
   var init = function () {
@@ -140,6 +173,8 @@
     formAddElement.addEventListener('click', onFormAddClick);
     formAddElement.addEventListener('submit', onFormAddSubmit);
     resetFormElement.addEventListener('click', onFormReset);
+    avatarImgElement.addEventListener('change', onAvatarChange);
+    offerImagesElement.addEventListener('change', onOfferImgChange);
   };
 
   init();
