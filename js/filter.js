@@ -41,6 +41,14 @@
     'features': getCheckedCheckboxes(checkboxElements)
   };
 
+  /** временно для тестов **/
+  formFilterElement.addEventListener('reset', function (evt) {
+    window.Filter['housing-type'] = evt.currentTarget.querySelector('#housing-type').value;
+    window.Filter['housing-price'] = evt.currentTarget.querySelector('#housing-price').value;
+    window.Filter['housing-rooms'] = evt.currentTarget.querySelector('#housing-rooms').value;
+    window.Filter['housing-guests'] = evt.currentTarget.querySelector('#housing-guests').value;
+    window.Filter['features'] = getCheckedCheckboxes(evt.currentTarget.querySelectorAll('.map__checkbox'));
+  });
   typeElement.addEventListener('change', onChangeSelect);
   priceElement.addEventListener('change', onChangeSelect);
   roomsElement.addEventListener('change', onChangeSelect);

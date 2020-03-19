@@ -6,14 +6,14 @@
   var formFilterSelectElements = formFilterElement.querySelectorAll('select');
   var formFilterFieldsetElements = formFilterElement.querySelectorAll('fieldset');
   var mapMainPinElement = document.querySelector('.map__pin--main');
-  var DefaultCoors = {
+  var DefaultCoordinates = {
     x: mapMainPinElement.style.left,
     y: mapMainPinElement.style.top
   };
 
-  var setDefaultCoors = function () {
-    mapMainPinElement.style.left = DefaultCoors.x;
-    mapMainPinElement.style.top = DefaultCoors.y;
+  var setDefaultCoordinates = function () {
+    mapMainPinElement.style.left = DefaultCoordinates.x;
+    mapMainPinElement.style.top = DefaultCoordinates.y;
     window.addForm.setAddress();
   };
 
@@ -57,7 +57,7 @@
     enable: enableMap,
     disable: disableMap,
     clear: clearMap,
-    setPinDefault: setDefaultCoors,
+    setPinDefault: setDefaultCoordinates,
     reset: resetMapForm
   };
 })();

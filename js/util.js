@@ -7,6 +7,7 @@
   window.util = {
     ESC_KEY: 'Escape',
     HIDDEN_CLASS: 'hidden',
+    ENTER_KEY: 'Enter',
     showError: function (error) {
       errorElement.style.position = 'absolute';
       errorElement.style.left = '0';

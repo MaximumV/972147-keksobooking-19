@@ -1,6 +1,14 @@
 'use strict';
 
 (function () {
+  var AvatarImageSize = {
+    WIDTH: 70,
+    HEIGHT: 70
+  };
+  var OfferImageSize = {
+    WIDTH: 40,
+    HEIGHT: 40
+  };
   var mainElement = document.querySelector('main');
   var mapMainPinElement = document.querySelector('.map__pin--main');
   var formAddElement = document.querySelector('.ad-form');
@@ -86,13 +94,13 @@
 
   var onAvatarChange = function (evt) {
     if (validateImages(evt.currentTarget.files) === '') {
-      renderPreview(evt.currentTarget.files[0], 40, 40, avatarPreviewElement);
+      renderPreview(evt.currentTarget.files[0], AvatarImageSize.WIDTH, AvatarImageSize.HEIGHT, avatarPreviewElement);
     }
   };
 
   var onOfferImgChange = function (evt) {
     if (validateImages(evt.currentTarget.files) === '') {
-      renderPreview(evt.currentTarget.files[0], 70, 70, offerImagesPreviewElement);
+      renderPreview(evt.currentTarget.files[0], OfferImageSize.WIDTH, OfferImageSize.HEIGHT, offerImagesPreviewElement);
     }
   };
 
@@ -107,15 +115,18 @@
     var removeSuccessElement = function () {
       mainElement.removeChild(mainElement.querySelector('.success'));
     };
-    var removeSuccessElementByEscKey = function (evt) {
+    var onEscKeyRemoveSuccess = function (evt) {
       if (evt.key === window.util.ESC_KEY) {
         removeSuccessElement();
-        document.removeEventListener('keydown', removeSuccessElementByEscKey);
+        document.removeEventListener('keydown', onEscKeyRemoveSuccess);
       }
     };
+    var onClickRemoveSuccess = function () {
+      removeSuccessElement();
+    };
     successElement.querySelector('.success')
-      .addEventListener('click', removeSuccessElement);
-    document.addEventListener('keydown', removeSuccessElementByEscKey);
+      .addEventListener('click', onClickRemoveSuccess);
+    document.addEventListener('keydown', onEscKeyRemoveSuccess);
     mainElement.appendChild(successElement);
     window.app.reset();
   };
@@ -125,18 +136,21 @@
     var removeErrorElement = function () {
       mainElement.removeChild(mainElement.querySelector('.error'));
     };
-    var removeErrorElementByEscKey = function (evt) {
+    var onEscKeyRemoveError = function (evt) {
       if (evt.key === window.util.ESC_KEY) {
         removeErrorElement();
-        document.removeEventListener('keydown', removeErrorElementByEscKey);
+        document.removeEventListener('keydown', onEscKeyRemoveError);
       }
+    };
+    var onClickRemoveError = function () {
+      removeErrorElement();
     };
     errorElement.querySelector('.error__message').textContent = error;
     errorElement.querySelector('.error__button')
-      .addEventListener('click', removeErrorElement);
+      .addEventListener('click', onClickRemoveError);
     errorElement.querySelector('.error')
-      .addEventListener('click', removeErrorElement);
-    document.addEventListener('keydown', removeErrorElementByEscKey);
+      .addEventListener('click', onClickRemoveError);
+    document.addEventListener('keydown', onEscKeyRemoveError);
     mainElement.appendChild(errorElement);
   };
 
@@ -147,6 +161,10 @@
 
   var onFormReset = function (evt) {
     window.app.reset(evt);
+  };
+
+  var onChangeTime = function (evt) {
+    synchronizeTime(evt);
   };
 
   var clearPreview = function (imgContainer) {
@@ -161,15 +179,17 @@
     clearPreview(offerImagesPreviewElement);
   };
 
+  var onChangeSetMinPrice = function (evt) {
+    setMinPrice(evt.currentTarget.value);
+  };
+
   var init = function () {
     setAddressValue();
     setMinPrice(selectTypeElement.value);
-    selectTypeElement.addEventListener('change', function (evt) {
-      setMinPrice(evt.currentTarget.value);
-    });
+    selectTypeElement.addEventListener('change', onChangeSetMinPrice);
     synchronizeTime(timeMinElement);
-    timeMinElement.addEventListener('change', synchronizeTime);
-    timeOutElement.addEventListener('change', synchronizeTime);
+    timeMinElement.addEventListener('change', onChangeTime);
+    timeOutElement.addEventListener('change', onChangeTime);
     formAddElement.addEventListener('click', onFormAddClick);
     formAddElement.addEventListener('submit', onFormAddSubmit);
     resetFormElement.addEventListener('click', onFormReset);
