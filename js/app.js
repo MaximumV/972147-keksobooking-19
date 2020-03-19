@@ -32,10 +32,10 @@
     if (evt) {
       evt.preventDefault();
     }
-    window.map.reset();
     window.map.clear();
     window.map.setPinDefault();
     window.addForm.reset();
+    window.filter.clear();
     deactivateApp();
   };
 
