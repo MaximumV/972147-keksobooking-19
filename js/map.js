@@ -21,7 +21,7 @@
     if (mapElement.classList.contains('map--faded')) {
       window.util.enableFormElements(formFilterFieldsetElements);
       window.util.enableFormElements(formFilterSelectElements);
-      window.offers.generate(window.filter.data);
+      window.offers.generate(window.filter.Data);
       mapElement.classList.remove('map--faded');
     }
   };

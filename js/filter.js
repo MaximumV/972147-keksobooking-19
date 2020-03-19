@@ -19,18 +19,18 @@
   };
 
   var onChangeSelect = function (evt) {
-    window.filter.data[evt.currentTarget.id] = evt.currentTarget.value;
+    window.filter.Data[evt.currentTarget.id] = evt.currentTarget.value;
     window.util.debounce(refreshFilter);
   };
 
   var onChangeCheckbox = function (evt) {
-    window.filter.data[evt.currentTarget.name] = getCheckedCheckboxes(checkboxElements);
+    window.filter.Data[evt.currentTarget.name] = getCheckedCheckboxes(checkboxElements);
     window.util.debounce(refreshFilter);
   };
 
   var refreshFilter = function () {
     window.map.clear();
-    window.offers.generate(window.filter.data);
+    window.offers.generate(window.filter.Data);
   };
 
   var getFormInputsValue = function () {
@@ -56,10 +56,10 @@
   init();
 
   window.filter = {
-    data: getFormInputsValue(),
+    Data: getFormInputsValue(),
     clear: function () {
       formFilterElement.reset();
-      this.data = getFormInputsValue();
+      this.Data = getFormInputsValue();
     }
   };
 })();
