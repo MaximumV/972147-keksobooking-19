@@ -19,41 +19,47 @@
   };
 
   var onChangeSelect = function (evt) {
-    window.Filter[evt.currentTarget.id] = evt.currentTarget.value;
+    window.filter.Data[evt.currentTarget.id] = evt.currentTarget.value;
     window.util.debounce(refreshFilter);
   };
 
   var onChangeCheckbox = function (evt) {
-    window.Filter[evt.currentTarget.name] = getCheckedCheckboxes(checkboxElements);
+    window.filter.Data[evt.currentTarget.name] = getCheckedCheckboxes(checkboxElements);
     window.util.debounce(refreshFilter);
   };
 
   var refreshFilter = function () {
     window.map.clear();
-    window.offers.generate(window.Filter);
+    window.offers.generate(window.filter.Data);
   };
 
-  window.Filter = {
-    'housing-type': typeElement.value,
-    'housing-price': priceElement.value,
-    'housing-rooms': roomsElement.value,
-    'housing-guests': guestsElements.value,
-    'features': getCheckedCheckboxes(checkboxElements)
+  var getFormInputsValue = function () {
+    return {
+      'housing-type': typeElement.value,
+      'housing-price': priceElement.value,
+      'housing-rooms': roomsElement.value,
+      'housing-guests': guestsElements.value,
+      'features': getCheckedCheckboxes(checkboxElements)
+    };
   };
 
-  /** временно для тестов **/
-  formFilterElement.addEventListener('reset', function (evt) {
-    window.Filter['housing-type'] = evt.currentTarget.querySelector('#housing-type').value;
-    window.Filter['housing-price'] = evt.currentTarget.querySelector('#housing-price').value;
-    window.Filter['housing-rooms'] = evt.currentTarget.querySelector('#housing-rooms').value;
-    window.Filter['housing-guests'] = evt.currentTarget.querySelector('#housing-guests').value;
-    window.Filter['features'] = getCheckedCheckboxes(evt.currentTarget.querySelectorAll('.map__checkbox'));
-  });
-  typeElement.addEventListener('change', onChangeSelect);
-  priceElement.addEventListener('change', onChangeSelect);
-  roomsElement.addEventListener('change', onChangeSelect);
-  guestsElements.addEventListener('change', onChangeSelect);
-  checkboxElements.forEach(function (item) {
-    item.addEventListener('change', onChangeCheckbox);
-  });
+  var init = function () {
+    typeElement.addEventListener('change', onChangeSelect);
+    priceElement.addEventListener('change', onChangeSelect);
+    roomsElement.addEventListener('change', onChangeSelect);
+    guestsElements.addEventListener('change', onChangeSelect);
+    checkboxElements.forEach(function (item) {
+      item.addEventListener('change', onChangeCheckbox);
+    });
+  };
+
+  init();
+
+  window.filter = {
+    Data: getFormInputsValue(),
+    clear: function () {
+      formFilterElement.reset();
+      this.Data = getFormInputsValue();
+    }
+  };
 })();

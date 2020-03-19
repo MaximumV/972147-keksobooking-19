@@ -100,12 +100,16 @@
     document.addEventListener('keydown', onEscKeyHidePopup);
   };
 
+  var onClickControlPopup = function (evt) {
+    controlPopup(evt);
+  };
+
   var getPin = function (pinData) {
     var pinElement = mapPinTemplate.cloneNode(true);
     var pinImg = pinElement.querySelector('img');
     pinElement.style = 'left: ' + pinData.location.x + 'px; top: ' + pinData.location.y + 'px;';
     pinElement.id = 'pin_' + pinData.id;
-    pinElement.addEventListener('click', controlPopup);
+    pinElement.addEventListener('click', onClickControlPopup);
     pinImg.src = pinData.author.avatar;
     pinImg.alt = pinData.offer.title;
     return pinElement;

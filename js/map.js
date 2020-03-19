@@ -21,7 +21,7 @@
     if (mapElement.classList.contains('map--faded')) {
       window.util.enableFormElements(formFilterFieldsetElements);
       window.util.enableFormElements(formFilterSelectElements);
-      window.offers.generate(window.Filter);
+      window.offers.generate(window.filter.Data);
       mapElement.classList.remove('map--faded');
     }
   };
@@ -49,15 +49,10 @@
     mapElement.classList.add('map--faded');
   };
 
-  var resetMapForm = function () {
-    formFilterElement.reset();
-  };
-
   window.map = {
     enable: enableMap,
     disable: disableMap,
     clear: clearMap,
-    setPinDefault: setDefaultCoordinates,
-    reset: resetMapForm
+    setPinDefault: setDefaultCoordinates
   };
 })();
