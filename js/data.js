@@ -28,7 +28,7 @@
     },
     OffsetPins: {
       main: {
-        x: 31,
+        x: 32,
         y: 72
       },
       offer: {

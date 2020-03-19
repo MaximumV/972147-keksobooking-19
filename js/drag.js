@@ -11,55 +11,52 @@
       MAX: 630 - window.data.OffsetPins.main.y
     }
   };
-  var isActiveApp = false;
   var mapMainPinElement = document.querySelector('.map__pin--main');
 
-  var setPinCoors = function (pinCoors, shift, coordinate) {
-    if (pinCoors[coordinate] < PossibleLocations[coordinate].MIN) {
-      pinCoors[coordinate] = PossibleLocations[coordinate].MIN;
-    } else if (pinCoors[coordinate] > PossibleLocations[coordinate].MAX) {
-      pinCoors[coordinate] = PossibleLocations[coordinate].MAX;
+  var setPinCoordinates = function (pinCoordinates, shift, coordinate) {
+    if (pinCoordinates[coordinate] < PossibleLocations[coordinate].MIN) {
+      pinCoordinates[coordinate] = PossibleLocations[coordinate].MIN;
+    } else if (pinCoordinates[coordinate] > PossibleLocations[coordinate].MAX) {
+      pinCoordinates[coordinate] = PossibleLocations[coordinate].MAX;
     } else {
-      pinCoors[coordinate] -= shift[coordinate];
+      pinCoordinates[coordinate] -= shift[coordinate];
     }
   };
 
   window.drag = function (evt) {
-    var coors = {
+    var coordinates = {
       x: evt.clientX,
       y: evt.clientY
     };
 
     var onMouseMove = function (moveEvt) {
-      var pinCoors = {
+      var pinCoordinates = {
         x: mapMainPinElement.offsetLeft,
         y: mapMainPinElement.offsetTop
       };
 
       var shift = {
-        x: coors.x - moveEvt.clientX,
-        y: coors.y - moveEvt.clientY
+        x: coordinates.x - moveEvt.clientX,
+        y: coordinates.y - moveEvt.clientY
       };
 
-      coors = {
+      coordinates = {
         x: moveEvt.clientX,
         y: moveEvt.clientY
       };
 
-      setPinCoors(pinCoors, shift, 'x');
-      setPinCoors(pinCoors, shift, 'y');
+      setPinCoordinates(pinCoordinates, shift, 'x');
+      setPinCoordinates(pinCoordinates, shift, 'y');
 
-      mapMainPinElement.style.left = (pinCoors.x) + 'px';
-      mapMainPinElement.style.top = (pinCoors.y) + 'px';
+      mapMainPinElement.style.left = (pinCoordinates.x) + 'px';
+      mapMainPinElement.style.top = (pinCoordinates.y) + 'px';
     };
 
     var onMouseUp = function () {
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
       window.addForm.setAddress();
-      if (!isActiveApp) {
-        window.app.activate();
-      }
+      window.app.activate();
     };
 
     document.addEventListener('mousemove', onMouseMove);

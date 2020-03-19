@@ -78,11 +78,15 @@
     removePinsActiveClass();
   };
 
-  var hidePopupElementsByEsc = function (evt) {
+  var onEscKeyHidePopup = function (evt) {
     if (evt.key === window.util.ESC_KEY) {
       hidePopupElements();
-      document.removeEventListener('keydown', hidePopupElementsByEsc);
+      document.removeEventListener('keydown', onEscKeyHidePopup);
     }
+  };
+
+  var onClickHidePopupElements = function () {
+    hidePopupElements();
   };
 
   var controlPopup = function (evt) {
@@ -92,8 +96,8 @@
     removePinsActiveClass();
     popup.classList.remove(window.util.HIDDEN_CLASS);
     evt.currentTarget.classList.add(MAP_PIN_ACTIVE_CLASS);
-    popup.querySelector('.popup__close').addEventListener('click', hidePopupElements);
-    document.addEventListener('keydown', hidePopupElementsByEsc);
+    popup.querySelector('.popup__close').addEventListener('click', onClickHidePopupElements);
+    document.addEventListener('keydown', onEscKeyHidePopup);
   };
 
   var getPin = function (pinData) {
