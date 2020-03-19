@@ -2,12 +2,12 @@
 
 (function () {
   var AvatarImageSize = {
-    WIDTH: 70,
-    HEIGHT: 70
-  };
-  var OfferImageSize = {
     WIDTH: 40,
     HEIGHT: 40
+  };
+  var OfferImageSize = {
+    WIDTH: 70,
+    HEIGHT: 70
   };
   var mainElement = document.querySelector('main');
   var mapMainPinElement = document.querySelector('.map__pin--main');

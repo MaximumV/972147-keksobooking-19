@@ -43,13 +43,17 @@
     };
   };
 
-  typeElement.addEventListener('change', onChangeSelect);
-  priceElement.addEventListener('change', onChangeSelect);
-  roomsElement.addEventListener('change', onChangeSelect);
-  guestsElements.addEventListener('change', onChangeSelect);
-  checkboxElements.forEach(function (item) {
-    item.addEventListener('change', onChangeCheckbox);
-  });
+  var init = function () {
+    typeElement.addEventListener('change', onChangeSelect);
+    priceElement.addEventListener('change', onChangeSelect);
+    roomsElement.addEventListener('change', onChangeSelect);
+    guestsElements.addEventListener('change', onChangeSelect);
+    checkboxElements.forEach(function (item) {
+      item.addEventListener('change', onChangeCheckbox);
+    });
+  };
+
+  init();
 
   window.filter = {
     data: getFormInputsValue(),

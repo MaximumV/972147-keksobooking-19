@@ -22,21 +22,23 @@
       errorElement.style.display = 'none';
     },
     getPinCoordinates: function (pinElement, type) {
-      var coorX = 0;
-      var coorY = 0;
+      var coordianteX = 0;
+      var coordianteY = 0;
       switch (type) {
         case 'main':
-          coorX = parseInt(pinElement.style.left, 10) + window.data.OffsetPins.main.x;
-          coorY = parseInt(pinElement.style.top, 10) + window.data.OffsetPins.main.y;
+          coordianteX = parseInt(pinElement.style.left, 10) + window.data.OffsetPins.main.x;
+          coordianteY = parseInt(pinElement.style.top, 10) + window.data.OffsetPins.main.y;
           break;
         case 'offer':
-          coorX = parseInt(pinElement.style.left, 10) + window.data.OffsetPins.offer.x;
-          coorY = parseInt(pinElement.style.top, 10) + window.data.OffsetPins.offer.y;
+          coordianteX = parseInt(pinElement.style.left, 10) + window.data.OffsetPins.offer.x;
+          coordianteY = parseInt(pinElement.style.top, 10) + window.data.OffsetPins.offer.y;
+          break;
+        default:
           break;
       }
       return {
-        x: coorX,
-        y: coorY
+        x: coordianteX,
+        y: coordianteY
       };
     },
     disableFormElements: function (nodeList) {
